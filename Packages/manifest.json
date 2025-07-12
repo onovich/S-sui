@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "com.codewriter.triinspector": "ssh://git@github.com/codewriter-packages/Tri-Inspector.git",
+    "com.mortise.easetween": "ssh://git@github.com/onovich/EaseTween.git?path=/Assets/com.mortise.easetween#main",
     "com.unity.collab-proxy": "2.8.2",
     "com.unity.feature.2d": "2.0.0",
     "com.unity.ide.rider": "3.0.28",
