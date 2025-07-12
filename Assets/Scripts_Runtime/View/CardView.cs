@@ -29,6 +29,7 @@ public class CardView : MonoBehaviour {
         miniSuitImage.sprite = suitSprite;
         miniSuitImage.color = suitColor;
         rankText.text = randString;
+        rankText.color = suitColor;
     }
 
     public void MoveTo(Vector2 pos) {
