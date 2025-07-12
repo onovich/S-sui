@@ -14,4 +14,13 @@ public class CardTable : ScriptableObject {
         return null;
     }
 
+    public Color GetColor(CardSuit suit) {
+        foreach (var kv in cardKVModels) {
+            if (kv.suit == suit) {
+                return kv.suitColor;
+            }
+        }
+        return Color.green;
+    }
+
 }

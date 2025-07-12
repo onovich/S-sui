@@ -37,4 +37,12 @@ public static class CardController {
         CardViewSystem.DestoryCard(ctx.viewCtx, cardId);
     }
 
+    public static void DestoryAllCard(LogicContext ctx) {
+        CardSystem.Clear(ctx);
+        int count = ctx.viewCtx.CopyAllCards(out CardView[] cardArray);
+        for (int i = 0; i < count; i++) {
+            CardViewSystem.DestoryCard(ctx.viewCtx, cardArray[i].CardId);
+        }
+    }
+
 }

@@ -3,31 +3,28 @@ using UnityEngine;
 public static class CardViewSystem {
 
     public static void SpawnCard(ViewContext ctx, int id, CardSuit suit, int rank, int line) {
-        CardView card = GameObject.Instantiate(ctx.cardPrefab, ctx.Table.Body);
+        CardView card = GameObject.Instantiate(ctx.cardPrefab, ctx.Tableau.Body);
         var table = ctx.tableCtx.cardTable;
         var suitSprite = table.GetSprite(suit);
         var rankString = rank.ToRankString();
-        card.Ctor(id, suitSprite, rankString);
+        var suitColor = table.GetColor(suit);
+        card.Ctor(id, suitSprite, suitColor, rankString);
+        InitPlaceCard(ctx, card, line);
         ctx.AddCard(card, line);
-        InitPlaceCard(ctx, id, line);
     }
 
-    static void InitPlaceCard(ViewContext ctx, int cardId, int line) {
-        bool has = ctx.TryGetCard(cardId, out CardView card);
-        if (!has) {
-            return;
-        }
-        card.transform.SetParent(ctx.Table.Body, false);
+    static void InitPlaceCard(ViewContext ctx, CardView card, int line) {
+        card.transform.SetParent(ctx.Tableau.Body, false);
 
         Vector2 pos;
         bool succ = ctx.TryGetLastByLine(line, out CardView lastCard);
         if (!succ) {
-            pos = ctx.Table.GetFoundationPos(line);
+            pos = ctx.Tableau.GetFoundationPos(line);
         } else {
             pos = lastCard.StackPoint;
         }
 
-        card.transform.localPosition = pos;
+        card.MoveTo(pos);
     }
 
     public static void MoveCard(ViewContext ctx, int cardId, int originLine, int targetLine) {
@@ -41,7 +38,7 @@ public static class CardViewSystem {
         Vector2 pos;
         bool succ = ctx.TryGetLastByLine(targetLine, out CardView lastCard);
         if (!succ) {
-            pos = ctx.Table.GetFoundationPos(targetLine);
+            pos = ctx.Tableau.GetFoundationPos(targetLine);
         } else {
             pos = lastCard.StackPoint;
         }

@@ -27,4 +27,8 @@ public static class CardSystem {
         ctx.RemoveCard(cardId);
     }
 
+    public static void Clear(LogicContext ctx) {
+        ctx.Clear();
+    }
+
 }

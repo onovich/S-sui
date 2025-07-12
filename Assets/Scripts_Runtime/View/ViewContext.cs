@@ -7,27 +7,19 @@ public class ViewContext : MonoBehaviour {
 
     // Serialized
     public CardView cardPrefab;
-    public TableView tablePrefab;
-    public RectTransform tableRoot;
+    public TableauView tableau;
+    public TableContext tableCtx;
 
     // Internal
     Dictionary<int, CardView> cards;
     Dictionary<int, Stack<CardView>> cardsLineDict;
     CardView[] tempArray;
-    TableView table;
-    public TableView Table => table;
-
-    // External
-    internal TableContext tableCtx;
+    public TableauView Tableau => tableau;
 
     public ViewContext() {
         cards = new Dictionary<int, CardView>();
         cardsLineDict = new Dictionary<int, Stack<CardView>>();
         tempArray = new CardView[16];
-    }
-
-    public void Inject(TableContext tableContext) {
-        tableCtx = tableContext;
     }
 
     public void AddCard(CardView card, int line) {

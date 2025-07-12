@@ -7,4 +7,5 @@ using UnityEngine;
 public struct CardKVModel {
     [Group("Card")] public CardSuit suit;
     [Group("Card")] public Sprite suitSprite;
+    [Group("Card")] public Color suitColor;
 }

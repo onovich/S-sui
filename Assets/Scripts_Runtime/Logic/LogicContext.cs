@@ -7,7 +7,7 @@ public class LogicContext : MonoBehaviour {
 
     // Internal
     List<CardModel> deckCards;
-    Dictionary<int, CardModel> tableCards;
+    Dictionary<int, CardModel> tableauCards;
     CardModel[] tempArray;
     public IDService ids;
     public RandomService rd;
@@ -18,15 +18,10 @@ public class LogicContext : MonoBehaviour {
 
     public LogicContext() {
         deckCards = new List<CardModel>();
-        tableCards = new Dictionary<int, CardModel>();
+        tableauCards = new Dictionary<int, CardModel>();
         tempArray = new CardModel[16];
         ids = new IDService();
         rd = new RandomService();
-    }
-
-    public void Inject(TableContext tableContext, ViewContext viewContext) {
-        tableCtx = tableContext;
-        viewCtx = viewContext;
     }
 
     public void AddCard(CardModel card) {
@@ -57,19 +52,19 @@ public class LogicContext : MonoBehaviour {
         card = tempArray[index];
 
         deckCards.Remove(card);
-        tableCards.Add(card.Id, card);
+        tableauCards.Add(card.Id, card);
         return true;
     }
 
     public void RemoveCard(int id) {
-        if (tableCards.ContainsKey(id)) {
-            tableCards.Remove(id);
+        if (tableauCards.ContainsKey(id)) {
+            tableauCards.Remove(id);
         }
     }
 
-    public int CopyAllCards(out CardModel[] cardArray) {
+    public int CopyAllTableCards(out CardModel[] cardArray) {
         int count = 0;
-        foreach (var card in deckCards) {
+        foreach (var card in tableauCards.Values) {
             if (tempArray.Length <= count) {
                 Array.Resize(ref tempArray, tempArray.Length * 2);
             }
@@ -79,7 +74,6 @@ public class LogicContext : MonoBehaviour {
 
         cardArray = new CardModel[count];
         Array.Copy(tempArray, cardArray, count);
-        deckCards.Clear();
         return count;
     }
 
