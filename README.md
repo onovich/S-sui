@@ -1,0 +1,1 @@
+Sōsui (Dié Cuì | 叠翠) - An elegant solitaire card game blending Eastern aesthetics with strategic stacking challenges.
