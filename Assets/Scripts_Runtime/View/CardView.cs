@@ -18,6 +18,7 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     bool isDragging;
     Vector2 offset;
     Canvas canvas;
+    int originalSiblingIndex;
 
     public System.Action<int> OnClickHandler;
     public System.Action<int> OnBeginDragEvent;
@@ -50,12 +51,16 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnBeginDrag(PointerEventData eventData) {
         isDragging = true;
 
+        originalSiblingIndex = trans.GetSiblingIndex();
+        trans.SetAsLastSibling();
+
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvas.transform as RectTransform,
             eventData.position,
             eventData.pressEventCamera,
             out offset);
-        offset -= new Vector2(trans.localPosition.x, trans.localPosition.y);
+        Vector2 pos = trans.localPosition;
+        offset -= pos;
 
         OnBeginDragEvent?.Invoke(cardId);
     }
@@ -75,6 +80,7 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnEndDrag(PointerEventData eventData) {
         isDragging = false;
+        // trans.SetSiblingIndex(originalSiblingIndex);
         OnEndDragEvent?.Invoke(cardId);
     }
 }
