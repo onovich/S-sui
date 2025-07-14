@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CardTable", menuName = "~/Sōsui/CardTable", order = 0)]
 public class CardTable : ScriptableObject {
 
+    public Vector2 cardSize;
     [SerializeField] CardKVModel[] cardKVModels;
 
     public Sprite GetSprite(CardSuit suit) {

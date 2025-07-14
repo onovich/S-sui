@@ -16,10 +16,14 @@ public class ViewContext : MonoBehaviour {
     CardView[] tempArray;
     public TableauView Tableau => tableau;
 
+    // Events
+    public ViewEvents evt;
+
     public ViewContext() {
         cards = new Dictionary<int, CardView>();
         cardsLineDict = new Dictionary<int, Stack<CardView>>();
         tempArray = new CardView[16];
+        evt = new ViewEvents();
     }
 
     public void AddCard(CardView card, int line) {
@@ -96,6 +100,7 @@ public class ViewContext : MonoBehaviour {
     public void Clear() {
         cards.Clear();
         cardsLineDict.Clear();
+        evt.Clear();
     }
 
 }

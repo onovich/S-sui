@@ -11,6 +11,22 @@ public static class CardViewSystem {
         card.Ctor(id, suitSprite, suitColor, rankString);
         InitPlaceCard(ctx, card, line);
         ctx.AddCard(card, line);
+
+        card.OnClickHandler = (cardId) => {
+            ctx.evt.OnCardClick(cardId);
+        };
+
+        card.OnBeginDragEvent = (cardId) => {
+            ctx.evt.OnCardBeginDrag(cardId);
+        };
+
+        card.OnDragEvent = (cardId) => {
+            ctx.evt.OnCardDrag(cardId);
+        };
+
+        card.OnEndDragEvent = (cardId) => {
+            ctx.evt.OnCardEndDrag(cardId);
+        };
     }
 
     static void InitPlaceCard(ViewContext ctx, CardView card, int line) {
@@ -24,7 +40,16 @@ public static class CardViewSystem {
             pos = lastCard.StackPoint;
         }
 
-        card.MoveTo(pos);
+        card.SetPos(pos);
+    }
+
+    public static void PlaceCard(ViewContext ctx, int cardId, Vector2 pos) {
+        bool has = ctx.TryGetCard(cardId, out CardView card);
+        if (!has) {
+            return;
+        }
+
+        card.SetPos(pos);
     }
 
     public static void MoveCard(ViewContext ctx, int cardId, int originLine, int targetLine) {

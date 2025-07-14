@@ -20,6 +20,8 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     Canvas canvas;
     int originalSiblingIndex;
 
+    static readonly Vector3[] cornersBuffer = new Vector3[4];
+
     public System.Action<int> OnClickHandler;
     public System.Action<int> OnBeginDragEvent;
     public System.Action<int> OnDragEvent;
@@ -44,7 +46,7 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         rankText.color = suitColor;
     }
 
-    public void MoveTo(Vector2 pos) {
+    public void SetPos(Vector2 pos) {
         trans.position = pos;
     }
 

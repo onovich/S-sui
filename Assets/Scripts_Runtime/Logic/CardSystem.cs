@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public static class CardSystem {
 
-    public static void CreateCard(LogicContext ctx, CardSuit suit, int rank) {
+    public static void CreateCard(LogicContext ctx, CardSuit suit, int rank, Vector2 size) {
         int cardId = ctx.ids.PickNextCardEntityID();
         CardModel cardModel = new CardModel();
-        cardModel.Ctor(cardId, suit, rank);
-        ctx.AddCard(cardModel);
+        cardModel.Ctor(cardId, suit, rank, size);
+        ctx.AddCardToDeck(cardModel);
     }
 
     public static void ShuffleDeck(LogicContext ctx) {
@@ -29,6 +29,12 @@ public static class CardSystem {
 
     public static void Clear(LogicContext ctx) {
         ctx.Clear();
+    }
+
+    public static void MoveCard(LogicContext ctx, int cardId, Vector2 pos) {
+        if (ctx.TryGetTableauCard(cardId, out CardModel card)) {
+            card.SetPos(pos);
+        }
     }
 
 }
